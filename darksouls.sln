@@ -1,9 +1,9 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{E1607A50-A3B0-43B5-911D-4C81BC0372E5}") = "darksouls", "Assembly-CSharp-firstpass.csproj", "{62589372-3E99-E177-1AA3-ADF3EDA7AEF9}"
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-firstpass", "Assembly-CSharp-firstpass.csproj", "{62589372-3E99-E177-1AA3-ADF3EDA7AEF9}"
 EndProject
-Project("{E1607A50-A3B0-43B5-911D-4C81BC0372E5}") = "darksouls", "Assembly-CSharp.csproj", "{3800A1BF-2253-228C-7503-157F58060E16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{3800A1BF-2253-228C-7503-157F58060E16}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
