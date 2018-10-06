@@ -15,11 +15,19 @@ public class playerInput : MonoBehaviour {
     public string keyC;
     public string keyD;
 
+    public string keyJRight;
+    public string keyJLeft;
+    public string keyJUp;
+    public string keyJDown;
+
     [Header("***** Output signal *****")]
     public float Dup;
     public float Dright;
     public float Dmag;
     public Vector3 Dvec;
+    public float Jup;
+    public float Jright;
+
 
     //1. pressing signal
     public bool run;
@@ -27,6 +35,8 @@ public class playerInput : MonoBehaviour {
     //2.trigger once signal
     public bool jump;
     public bool lastJump;
+    public bool attack;
+    public bool lastAttack;
 
     //3.double trigger
 
@@ -46,6 +56,10 @@ public class playerInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+
+        Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
+        Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
+        //print(Jup);
 
         targetDup = (Input.GetKey(keyUp)?1.0f:0) - (Input.GetKey(keyDown)?1.0f:0);
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
@@ -78,6 +92,18 @@ public class playerInput : MonoBehaviour {
             jump = false;
         }
         lastJump = newJump;
+
+        bool newAttack = Input.GetKey(keyC);
+
+        if (newAttack != lastAttack && newAttack == true){
+            attack = true;
+            print("attack trigger");
+        }
+        else
+        {
+            attack = false;
+        }
+        lastAttack = newAttack;
 
     }
     private Vector2 SquareToCircle(Vector2 input) {
