@@ -55,13 +55,16 @@
   <ItemGroup>
      <Compile Include="Assets\ActorController.cs" />
      <Compile Include="Assets\CameraController.cs" />
+     <Compile Include="Assets\Controller Tester\Scripts\DetectUnknownControllerMappings.cs" />
      <Compile Include="Assets\FSMClearSignal.cs" />
      <Compile Include="Assets\FSMonEnter.cs" />
      <Compile Include="Assets\FSMOnExit.cs" />
      <Compile Include="Assets\FSMOnUpdate.cs" />
+     <Compile Include="Assets\LeftArmAnimFix.cs" />
      <Compile Include="Assets\OnGroundSensor.cs" />
      <Compile Include="Assets\playerInput.cs" />
      <Compile Include="Assets\RootMotionControl.cs" />
+     <Compile Include="Assets\TesterJoystick.cs" />
      <Compile Include="Assets\TestFSMOnEnter.cs" />
      <Compile Include="Assets\TriggerControl.cs" />
  <Reference Include="UnityEditor.StandardEvents">

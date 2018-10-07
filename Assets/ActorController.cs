@@ -124,9 +124,9 @@ public class ActorController : MonoBehaviour {
     }
     public void OnRollEnter() {
         pi.inputEnable = false;
-        //lockPlanar = true;
+        lockPlanar = true;
         canAttack = false;
-        //thrustVec = new Vector3(0, RollVelocity, 0);
+        thrustVec = new Vector3(Mathf.Lerp(0,10,0.1f), RollVelocity, 0);
     }
     public void OnJabEnter() {
         pi.inputEnable = false;
@@ -161,11 +161,11 @@ public class ActorController : MonoBehaviour {
     }
     public void OnUpdateRM(object _deltaPos) {
         if (CheckState("attack1hC", "Attack")){
-            deltaPos = (Vector3)_deltaPos;
+            deltaPos = 0.6f*deltaPos + 0.4f*(Vector3)_deltaPos;
         }
-        if (CheckState("roll")) {
-            deltaPos = (Vector3)_deltaPos;
-            //deltaPos = model.transform.forward * tempVec;
-        }
+        //if (CheckState("roll")) {
+        //    deltaPos = (Vector3)_deltaPos;
+        //    //deltaPos = model.transform.forward * tempVec;
+        //}
     }
 }
