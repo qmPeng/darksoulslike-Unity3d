@@ -23,6 +23,8 @@ public class ActorController : MonoBehaviour {
     private bool lockPlanar = false;
     private CapsuleCollider col;
     private float lerpTarget;
+    private Vector3 deltaPos;
+    private Vector3 tempVec;
 
 	// Use this for initialization
 	void Awake () {
@@ -48,25 +50,32 @@ public class ActorController : MonoBehaviour {
         }
 
 
-        if(pi.Dmag > 0.1f){
-            Vector3 targetForward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
-            model.transform.forward = targetForward;
-        }
-        if (lockPlanar == false) {
-            planarVec = pi.Dmag * model.transform.forward * walkSpeed * ((pi.run) ? runMultiplier : 1.0f);
-        }
-
-        if (rigid.velocity.magnitude > 1f) {
-            anim.SetTrigger("roll");
-        }
+        
         //print(CheckState("idle", "Attack"));
 
     }
 
     void FixedUpdate () {
+        rigid.position += deltaPos;
         //rigid.position += planarVec * Time.fixedDeltaTime;
         rigid.velocity = new Vector3(planarVec.x, rigid.velocity.y, planarVec.z) + thrustVec;
         thrustVec = Vector3.zero;
+        deltaPos = Vector3.zero;
+
+        if (pi.Dmag > 0.1f)
+        {
+            Vector3 targetForward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
+            model.transform.forward = targetForward;
+        }
+        if (lockPlanar == false)
+        {
+            planarVec = pi.Dmag * model.transform.forward * walkSpeed * ((pi.run) ? runMultiplier : 1.0f);
+        }
+
+        if (rigid.velocity.magnitude > 1f)
+        {
+            anim.SetTrigger("roll");
+        }
     }
 
     private bool CheckState(string stateName, string layerName = "Base Layer") {
@@ -115,9 +124,9 @@ public class ActorController : MonoBehaviour {
     }
     public void OnRollEnter() {
         pi.inputEnable = false;
-        lockPlanar = true;
+        //lockPlanar = true;
         canAttack = false;
-        thrustVec = new Vector3(0, RollVelocity, 0);
+        //thrustVec = new Vector3(0, RollVelocity, 0);
     }
     public void OnJabEnter() {
         pi.inputEnable = false;
@@ -149,5 +158,14 @@ public class ActorController : MonoBehaviour {
     }
     public void OnAttackIdleUpdate() {
         anim.SetLayerWeight(anim.GetLayerIndex("Attack"), Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex("Attack")), lerpTarget, 0.1f));
+    }
+    public void OnUpdateRM(object _deltaPos) {
+        if (CheckState("attack1hC", "Attack")){
+            deltaPos = (Vector3)_deltaPos;
+        }
+        if (CheckState("roll")) {
+            deltaPos = (Vector3)_deltaPos;
+            //deltaPos = model.transform.forward * tempVec;
+        }
     }
 }

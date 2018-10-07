@@ -186,9 +186,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
+      keepOriginalPositionY: 0
+      keepOriginalPositionXZ: 1
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves:
@@ -197,52 +197,43 @@ ModelImporter:
           serializedVersion: 2
           curve:
           - serializedVersion: 3
-            time: 0.0012550354
-            value: 0
-            inSlope: -0.4913104
-            outSlope: -0.4913104
+            time: 0
+            value: 1
+            inSlope: -31.614037
+            outSlope: -31.614037
+            tangentMode: 34
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.12652607
+            value: -3
+            inSlope: 0
+            outSlope: 0
             tangentMode: 0
             weightedMode: 0
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
-            time: 0.26640475
-            value: -0.46146482
-            inSlope: -4.670769
-            outSlope: -4.670769
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.4137944
-            value: -1.6425037
-            inSlope: -3.4686718
-            outSlope: -3.4686718
-            tangentMode: 0
-            weightedMode: 0
-            inWeight: 0.33333334
-            outWeight: 0.33333334
-          - serializedVersion: 3
-            time: 0.6793176
-            value: -1.7289027
-            inSlope: 1.9537139
-            outSlope: 1.9537139
+            time: 0.8098712
+            value: -0.91282153
+            inSlope: 6.0817723
+            outSlope: 6.0817723
             tangentMode: 0
             weightedMode: 0
             inWeight: 0.33333334
             outWeight: 0.33333334
           - serializedVersion: 3
             time: 1
-            value: 0
-            inSlope: 3.2770379
-            outSlope: 3.2770379
-            tangentMode: 0
+            value: 1
+            inSlope: 10.060661
+            outSlope: 10.060661
+            tangentMode: 34
             weightedMode: 0
             inWeight: 0.33333334
-            outWeight: 0.33333334
-          preInfinity: 3
-          postInfinity: 3
+            outWeight: 0
+          preInfinity: 2
+          postInfinity: 2
           rotationOrder: 0
       events: []
       transformMask: []
