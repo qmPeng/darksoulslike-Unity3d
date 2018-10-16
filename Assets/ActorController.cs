@@ -4,7 +4,7 @@ using System.Collections;
 public class ActorController : MonoBehaviour {
 
     public GameObject model;
-    public playerInput pi;
+    public JoystickInput pi;
     public float walkSpeed = 2.4f;
     public float runMultiplier = 2.0f;
     public float JumpVelocity = 5.0f;
@@ -29,7 +29,7 @@ public class ActorController : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-        pi = GetComponent<playerInput>();
+        pi = GetComponent<JoystickInput>();
         anim = model.GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
