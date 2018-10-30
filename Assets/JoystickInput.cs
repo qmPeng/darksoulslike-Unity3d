@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JoystickInput : MonoBehaviour {
+public class JoystickInput : IUserInput {
 
     [Header("***** Joystick Setting *****")]
     public string axisX = "axisX";
@@ -13,44 +13,46 @@ public class JoystickInput : MonoBehaviour {
     public string btn1 = "btn1";
     public string btn2 = "btn2";
     public string btn3 = "btn3";
+    public string btnLB = "btn4";
+    public string btnLT = "btn6";
 
 
-    [Header("***** Output signal *****")]
-    public float Dup;
-    public float Dright;
-    public float Dmag;
-    public Vector3 Dvec;
-    public float Jup;
-    public float Jright;
+    //[Header("***** Output signal *****")]
+    //public float Dup;
+    //public float Dright;
+    //public float Dmag;
+    //public Vector3 Dvec;
+    //public float Jup;
+    //public float Jright;
 
 
-    //1. pressing signal
-    public bool run;
+    ////1. pressing signal
+    //public bool run;
 
-    //2.trigger once signal
-    public bool jump;
-    public bool lastJump;
-    public bool attack;
-    public bool lastAttack;
+    ////2.trigger once signal
+    //public bool jump;
+    //public bool lastJump;
+    //public bool attack;
+    //public bool lastAttack;
 
-    //3.double trigger
+    ////3.double trigger
 
-    [Header("***** others *****")]
+    //[Header("***** others *****")]
 
-    public bool inputEnable = true; //flag
+    //public bool inputEnable = true; //flag
 
-    private float targetDup;
-    private float targetDright;
-    private float velocityDup;
-    private float velocityDright;
+    //private float targetDup;
+    //private float targetDright;
+    //private float velocityDup;
+    //private float velocityDright;
 
     // Use this for initialization
- //   void Start () {
-		
-	//}
-	
-	// Update is called once per frame
-	void Update () {
+    //   void Start () {
+
+    //}
+
+    // Update is called once per frame
+    void Update () {
 
         Jup = -1 * Input.GetAxis(axisJup);
         Jright = Input.GetAxis(axisJright);
@@ -75,8 +77,11 @@ public class JoystickInput : MonoBehaviour {
         Dvec = Dright2 * transform.right + Dup2 * transform.forward;
 
         run = Input.GetButton(btn0);
+        defense = Input.GetButton(btnLB);
+        
 
         bool newJump = Input.GetButton(btn1);
+        
 
         if (newJump != lastJump && newJump == true)
         {
@@ -103,13 +108,13 @@ public class JoystickInput : MonoBehaviour {
         lastAttack = newAttack;
     }
 
-    private Vector2 SquareToCircle(Vector2 input)
-    {
-        Vector2 output = Vector2.zero;
+    //private Vector2 SquareToCircle(Vector2 input)
+    //{
+    //    Vector2 output = Vector2.zero;
 
-        output.x = input.x * Mathf.Sqrt(1 - (input.y * input.y) / 2);
-        output.y = input.y * Mathf.Sqrt(1 - (input.x * input.x) / 2);
+    //    output.x = input.x * Mathf.Sqrt(1 - (input.y * input.y) / 2);
+    //    output.y = input.y * Mathf.Sqrt(1 - (input.x * input.x) / 2);
 
-        return output;
-    }
+    //    return output;
+    //}
 }

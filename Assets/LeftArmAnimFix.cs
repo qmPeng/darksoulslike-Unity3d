@@ -13,8 +13,9 @@ public class LeftArmAnimFix : MonoBehaviour {
     }
 
     void OnAnimatorIK() {
-        if (anim.GetBool("Defense") == false)
+        if (anim.GetBool("defense") == false)
         {
+            //print(123);
             Transform leftLowerArm = anim.GetBoneTransform(HumanBodyBones.LeftLowerArm);
             leftLowerArm.localEulerAngles += 0.75f * a;
             anim.SetBoneLocalRotation(HumanBodyBones.LeftLowerArm, Quaternion.Euler(leftLowerArm.localEulerAngles));

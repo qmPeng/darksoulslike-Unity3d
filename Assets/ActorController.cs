@@ -4,7 +4,7 @@ using System.Collections;
 public class ActorController : MonoBehaviour {
 
     public GameObject model;
-    public JoystickInput pi;
+    public IUserInput pi;
     public float walkSpeed = 2.4f;
     public float runMultiplier = 2.0f;
     public float JumpVelocity = 5.0f;
@@ -29,7 +29,14 @@ public class ActorController : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 
-        pi = GetComponent<JoystickInput>();
+        IUserInput[] inputs = GetComponents<IUserInput>();
+        foreach (var input in inputs) {
+            if (input.enabled == true)
+            {
+                pi = input;
+                break;
+            }
+        }
         anim = model.GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
         col = GetComponent<CapsuleCollider>();
@@ -40,6 +47,11 @@ public class ActorController : MonoBehaviour {
         //print(pi.Dup);
         float targetRunMulti = ((pi.run) ? runMultiplier : 1.0f);
         anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), targetRunMulti, 0.5f));
+        anim.SetBool("defense", pi.defense);
+        if(pi.jump && rigid.velocity.magnitude > 0f)
+        {
+            anim.SetTrigger("roll");
+        }
 
         if (pi.jump ) {
             anim.SetTrigger("jump");
