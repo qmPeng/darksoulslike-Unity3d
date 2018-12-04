@@ -54,8 +54,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\ActorController.cs" />
+     <Compile Include="Assets\ActorManger.cs" />
+     <Compile Include="Assets\BattleManger.cs" />
      <Compile Include="Assets\CameraController.cs" />
      <Compile Include="Assets\Controller Tester\Scripts\DetectUnknownControllerMappings.cs" />
+     <Compile Include="Assets\DummyIUserInput.cs" />
      <Compile Include="Assets\FSMClearSignal.cs" />
      <Compile Include="Assets\FSMonEnter.cs" />
      <Compile Include="Assets\FSMOnExit.cs" />
@@ -64,11 +67,16 @@
      <Compile Include="Assets\JoystickInput.cs" />
      <Compile Include="Assets\KeyboardInput.cs" />
      <Compile Include="Assets\LeftArmAnimFix.cs" />
+     <Compile Include="Assets\MyButton.cs" />
+     <Compile Include="Assets\MyTimer.cs" />
      <Compile Include="Assets\OnGroundSensor.cs" />
      <Compile Include="Assets\RootMotionControl.cs" />
+     <Compile Include="Assets\TesterHit.cs" />
      <Compile Include="Assets\TesterJoystick.cs" />
      <Compile Include="Assets\TestFSMOnEnter.cs" />
      <Compile Include="Assets\TriggerControl.cs" />
+     <Compile Include="Assets\WeaponController.cs" />
+     <Compile Include="Assets\WeaponManger.cs" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>E:/unity3d project/darksouls/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>

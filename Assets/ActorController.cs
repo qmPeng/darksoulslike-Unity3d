@@ -4,11 +4,12 @@ using System.Collections;
 public class ActorController : MonoBehaviour {
 
     public GameObject model;
+    public CameraController camcon;
     public IUserInput pi;
     public float walkSpeed = 2.4f;
     public float runMultiplier = 2.0f;
     public float JumpVelocity = 5.0f;
-    public float RollVelocity = 1.0f;
+    public float RollVelocity = 10.0f;
     //public float JabMultipliyer = 3.0f;
 
     [Header("***** Friction Setting *****")]
@@ -21,10 +22,13 @@ public class ActorController : MonoBehaviour {
     private Vector3 thrustVec;
     private bool canAttack;
     private bool lockPlanar = false;
+    private bool trackDirection = false;
     private CapsuleCollider col;
-    private float lerpTarget;
+    //private float lerpTarget;
     private Vector3 deltaPos;
     private Vector3 tempVec;
+
+    public bool leftIsShield;
 
 	// Use this for initialization
 	void Awake () {
@@ -45,23 +49,86 @@ public class ActorController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {  //Time.deltaTime 1/60
         //print(pi.Dup);
-        float targetRunMulti = ((pi.run) ? runMultiplier : 1.0f);
-        anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), targetRunMulti, 0.5f));
-        anim.SetBool("defense", pi.defense);
-        if(pi.jump && rigid.velocity.magnitude > 0f)
+        if (camcon.lockState == false)
         {
+            float targetRunMulti = ((pi.run) ? runMultiplier : 1.0f);
+            anim.SetFloat("forward", pi.Dmag * Mathf.Lerp(anim.GetFloat("forward"), targetRunMulti, 0.5f));
+            anim.SetFloat("right", 0);
+        }
+        else
+        {
+            Vector3 localDVec = transform.InverseTransformVector(pi.Dvec);
+            anim.SetFloat("forward", localDVec.z * ((pi.run) ? 2.0f : 1.0f));
+            anim.SetFloat("right", localDVec.x * ((pi.run) ? 2.0f : 1.0f));
+        }
+       
+        //anim.SetBool("defense", pi.defense);
+
+        if(pi.roll || rigid.velocity.magnitude > 7f)
+        {
+            //print("roll trigger");
             anim.SetTrigger("roll");
+            canAttack = false;
         }
 
         if (pi.jump ) {
             anim.SetTrigger("jump");
             canAttack = false;
         }
-        if (pi.attack && canAttack ) {
-            anim.SetTrigger("attack");
+        if ((pi.rb || pi.lb) && canAttack && (CheckState("ground") || CheckStateTag("attack"))) {
+            if (pi.rb)
+            {
+                anim.SetBool("r0l1", false);
+                anim.SetTrigger("attack");
+            }
+            else if (pi.lb && !leftIsShield)
+            {
+                anim.SetBool("r0l1", true);
+                anim.SetTrigger("attack");
+            }
+            
         }
 
+        if (leftIsShield)
+        {
+           
+            if (CheckState("ground"))
+            {
+                anim.SetBool("defense", pi.defense);
+                anim.SetLayerWeight(anim.GetLayerIndex("Defense"), 1);
+            }
+            else
+            {
+                anim.SetBool("defense", false);
+                //anim.SetLayerWeight(anim.GetLayerIndex("defense"), 0);
+            }
+            
+        }
+        else
+        {
+            anim.SetLayerWeight(anim.GetLayerIndex("Defense"), 0);
+        }
 
+        //if (CheckState("ground") && leftIsShield)
+        //{
+        //    anim.SetBool("defense", pi.defense);
+        //    if (pi.defense)
+        //    {
+        //        anim.SetLayerWeight(anim.GetLayerIndex("defense"), 1);
+
+        //    }
+        //    else
+        //    {
+        //        anim.SetLayerWeight(anim.GetLayerIndex("defense"), 0);
+        //    }
+
+        //}
+        //anim.SetLayerWeight(anim.GetLayerIndex("defense"), 0);
+
+        if (pi.lockon)
+        {
+            camcon.LockUnlock();
+        }
         
         //print(CheckState("idle", "Attack"));
 
@@ -74,25 +141,52 @@ public class ActorController : MonoBehaviour {
         thrustVec = Vector3.zero;
         deltaPos = Vector3.zero;
 
-        if (pi.Dmag > 0.1f)
+        if(camcon.lockState == false)
         {
-            Vector3 targetForward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
-            model.transform.forward = targetForward;
+            if (pi.Dmag > 0.1f)
+            {
+                Vector3 targetForward = Vector3.Slerp(model.transform.forward, pi.Dvec, 0.3f);
+                model.transform.forward = targetForward;
+            }
+            if (lockPlanar == false)
+            {
+                planarVec = pi.Dmag * model.transform.forward * walkSpeed * ((pi.run) ? runMultiplier : 1.0f);
+            }
         }
-        if (lockPlanar == false)
+        else
         {
-            planarVec = pi.Dmag * model.transform.forward * walkSpeed * ((pi.run) ? runMultiplier : 1.0f);
+            if(trackDirection == false)
+            {
+                model.transform.forward = transform.forward;
+            }
+            else
+            {
+                model.transform.forward = planarVec.normalized;
+            }
+            
+            if(lockPlanar == false)
+            {
+                planarVec = pi.Dvec * walkSpeed * ((pi.run) ? runMultiplier : 1.0f);
+            }
+            
         }
+        
 
-        if (rigid.velocity.magnitude > 1f)
-        {
-            anim.SetTrigger("roll");
-        }
+        //if (rigid.velocity.magnitude > 1f)
+        //{
+        //    anim.SetTrigger("roll");
+        //}
     }
 
     private bool CheckState(string stateName, string layerName = "Base Layer") {
         //int layerIndex = anim.GetLayerIndex(layerName);
         return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsName(stateName);
+    }
+
+    private bool CheckStateTag(string tagName, string layerName = "Base Layer")
+    {
+        //int layerIndex = anim.GetLayerIndex(layerName);
+        return anim.GetCurrentAnimatorStateInfo(anim.GetLayerIndex(layerName)).IsTag(tagName);
     }
 
     /// <summary>
@@ -102,6 +196,7 @@ public class ActorController : MonoBehaviour {
         pi.inputEnable = false;
         lockPlanar = true;
         thrustVec = new Vector3(0, JumpVelocity, 0);
+        trackDirection = true;
         //print("on jump!!!!!");
     }
 
@@ -124,6 +219,7 @@ public class ActorController : MonoBehaviour {
         lockPlanar = false;
         canAttack = true;
         col.material = frictionOne;
+        trackDirection = false;
     }
     public void OnGroundExit() {
         col.material = frictionZero;
@@ -139,6 +235,7 @@ public class ActorController : MonoBehaviour {
         lockPlanar = true;
         canAttack = false;
         thrustVec = new Vector3(Mathf.Lerp(0,10,0.1f), RollVelocity, 0);
+        trackDirection = true;
     }
     public void OnJabEnter() {
         pi.inputEnable = false;
@@ -153,26 +250,18 @@ public class ActorController : MonoBehaviour {
         pi.inputEnable = false;
         //lockPlanar = true;
         //print(anim.GetLayerIndex("attack"));
-        lerpTarget = 1.0f;
+        //lerpTarget = 1.0f;
         
     }
     public void OnAttack1hAUpdate() {
         thrustVec = model.transform.forward * anim.GetFloat("attack1hAVelocity");
         //float currentWeight = anim.GetLayerWeight(anim.GetLayerIndex("Attack"));
         //float currentWeight = Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex("Attack")), lerpTarget, 0.1f);
-        anim.SetLayerWeight(anim.GetLayerIndex("Attack"), Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex("Attack")), lerpTarget, 0.3f));
+        //anim.SetLayerWeight(anim.GetLayerIndex("Attack"), Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex("Attack")), lerpTarget, 0.3f));
     }
-    public void OnAttackIdleEnter() {
-        pi.inputEnable = true;
-        //lockPlanar = false;
-        lerpTarget = 0;
-        //anim.SetLayerWeight(anim.GetLayerIndex("Attack"), 0);
-    }
-    public void OnAttackIdleUpdate() {
-        anim.SetLayerWeight(anim.GetLayerIndex("Attack"), Mathf.Lerp(anim.GetLayerWeight(anim.GetLayerIndex("Attack")), lerpTarget, 0.1f));
-    }
+
     public void OnUpdateRM(object _deltaPos) {
-        if (CheckState("attack1hC", "Attack")){
+        if (CheckState("attack1hC")){
             deltaPos = 0.6f*deltaPos + 0.4f*(Vector3)_deltaPos;
         }
         //if (CheckState("roll")) {
@@ -180,4 +269,16 @@ public class ActorController : MonoBehaviour {
         //    //deltaPos = model.transform.forward * tempVec;
         //}
     }
+
+    public void OnHitEnter()
+    {
+        pi.inputEnable = false;
+        planarVec = Vector3.zero;
+    }
+
+    public void IssueTrigger(string triggerName)
+    {
+        anim.SetTrigger(triggerName);
+    }
+
 }

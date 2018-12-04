@@ -56,10 +56,12 @@ public class KeyboardInput : IUserInput {
 	
 	// Update is called once per frame
 	void Update () {
-
         Jup = (Input.GetKey(keyJUp) ? 1.0f : 0) - (Input.GetKey(keyJDown) ? 1.0f : 0);
         Jright = (Input.GetKey(keyJRight) ? 1.0f : 0) - (Input.GetKey(keyJLeft) ? 1.0f : 0);
         //print(Jup);
+        //Jup = Input.GetAxis("Mouse Y");
+        //Jright = Input.GetAxis("Mouse X");
+
 
         targetDup = (Input.GetKey(keyUp)?1.0f:0) - (Input.GetKey(keyDown)?1.0f:0);
         targetDright = (Input.GetKey(keyRight) ? 1.0f : 0) - (Input.GetKey(keyLeft) ? 1.0f : 0);
@@ -96,12 +98,12 @@ public class KeyboardInput : IUserInput {
         bool newAttack = Input.GetKey(keyC);
 
         if (newAttack != lastAttack && newAttack == true){
-            attack = true;
+            rb = true;
             print("attack trigger");
         }
         else
         {
-            attack = false;
+            rb = false;
         }
         lastAttack = newAttack;
 
