@@ -53,30 +53,79 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ActorController.cs" />
-     <Compile Include="Assets\ActorManger.cs" />
-     <Compile Include="Assets\BattleManger.cs" />
-     <Compile Include="Assets\CameraController.cs" />
+     <Compile Include="Assets\AI\Actions\StopAI.cs" />
      <Compile Include="Assets\Controller Tester\Scripts\DetectUnknownControllerMappings.cs" />
-     <Compile Include="Assets\DummyIUserInput.cs" />
-     <Compile Include="Assets\FSMClearSignal.cs" />
-     <Compile Include="Assets\FSMonEnter.cs" />
-     <Compile Include="Assets\FSMOnExit.cs" />
-     <Compile Include="Assets\FSMOnUpdate.cs" />
-     <Compile Include="Assets\IUserInput.cs" />
-     <Compile Include="Assets\JoystickInput.cs" />
-     <Compile Include="Assets\KeyboardInput.cs" />
-     <Compile Include="Assets\LeftArmAnimFix.cs" />
-     <Compile Include="Assets\MyButton.cs" />
-     <Compile Include="Assets\MyTimer.cs" />
-     <Compile Include="Assets\OnGroundSensor.cs" />
-     <Compile Include="Assets\RootMotionControl.cs" />
-     <Compile Include="Assets\TesterHit.cs" />
-     <Compile Include="Assets\TesterJoystick.cs" />
-     <Compile Include="Assets\TestFSMOnEnter.cs" />
-     <Compile Include="Assets\TriggerControl.cs" />
-     <Compile Include="Assets\WeaponController.cs" />
-     <Compile Include="Assets\WeaponManger.cs" />
+     <Compile Include="Assets\DefaultPlayables\LightControl\LightControlBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\LightControl\LightControlClip.cs" />
+     <Compile Include="Assets\DefaultPlayables\LightControl\LightControlMixerBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\LightControl\LightControlTrack.cs" />
+     <Compile Include="Assets\DefaultPlayables\NavMeshAgentControl\NavMeshAgentControlBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\NavMeshAgentControl\NavMeshAgentControlClip.cs" />
+     <Compile Include="Assets\DefaultPlayables\NavMeshAgentControl\NavMeshAgentControlMixerBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\NavMeshAgentControl\NavMeshAgentControlTrack.cs" />
+     <Compile Include="Assets\DefaultPlayables\ScreenFader\ScreenFaderBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\ScreenFader\ScreenFaderClip.cs" />
+     <Compile Include="Assets\DefaultPlayables\ScreenFader\ScreenFaderMixerBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\ScreenFader\ScreenFaderTrack.cs" />
+     <Compile Include="Assets\DefaultPlayables\TextSwitcher\TextSwitcherBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\TextSwitcher\TextSwitcherClip.cs" />
+     <Compile Include="Assets\DefaultPlayables\TextSwitcher\TextSwitcherMixerBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\TextSwitcher\TextSwitcherTrack.cs" />
+     <Compile Include="Assets\DefaultPlayables\TimeDilation\TimeDilationBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\TimeDilation\TimeDilationClip.cs" />
+     <Compile Include="Assets\DefaultPlayables\TimeDilation\TimeDilationMixerBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\TimeDilation\TimeDilationTrack.cs" />
+     <Compile Include="Assets\DefaultPlayables\TransformTween\TransformTweenBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\TransformTween\TransformTweenClip.cs" />
+     <Compile Include="Assets\DefaultPlayables\TransformTween\TransformTweenMixerBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\TransformTween\TransformTweenTrack.cs" />
+     <Compile Include="Assets\DefaultPlayables\Video\VideoPlayableBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\Video\VideoSchedulerPlayableBehaviour.cs" />
+     <Compile Include="Assets\DefaultPlayables\Video\VideoScriptPlayableAsset.cs" />
+     <Compile Include="Assets\DefaultPlayables\Video\VideoScriptPlayableTrack.cs" />
+     <Compile Include="Assets\EventCasterManager.cs" />
+     <Compile Include="Assets\MySuperPlayable\MySuperPlayableBehaviour.cs" />
+     <Compile Include="Assets\MySuperPlayable\MySuperPlayableClip.cs" />
+     <Compile Include="Assets\MySuperPlayable\MySuperPlayableMixerBehaviour.cs" />
+     <Compile Include="Assets\MySuperPlayable\MySuperPlayableTrack.cs" />
+     <Compile Include="Assets\Scripts\ActorController.cs" />
+     <Compile Include="Assets\Scripts\ActorManger.cs" />
+     <Compile Include="Assets\Scripts\BattleManger.cs" />
+     <Compile Include="Assets\Scripts\CameraController.cs" />
+     <Compile Include="Assets\Scripts\DirectManager.cs" />
+     <Compile Include="Assets\Scripts\DummyIUserInput.cs" />
+     <Compile Include="Assets\Scripts\FSMClearSignal.cs" />
+     <Compile Include="Assets\Scripts\FSMonEnter.cs" />
+     <Compile Include="Assets\Scripts\FSMOnExit.cs" />
+     <Compile Include="Assets\Scripts\FSMOnUpdate.cs" />
+     <Compile Include="Assets\Scripts\Helper\TransformHelpers.cs" />
+     <Compile Include="Assets\Scripts\IActorManagerInterface.cs" />
+     <Compile Include="Assets\Scripts\InteractionManager.cs" />
+     <Compile Include="Assets\Scripts\IUserInput.cs" />
+     <Compile Include="Assets\Scripts\JoystickInput.cs" />
+     <Compile Include="Assets\Scripts\KeyboardInput.cs" />
+     <Compile Include="Assets\Scripts\LeftArmAnimFix.cs" />
+     <Compile Include="Assets\Scripts\MyButton.cs" />
+     <Compile Include="Assets\Scripts\MyTimer.cs" />
+     <Compile Include="Assets\Scripts\OnGroundSensor.cs" />
+     <Compile Include="Assets\Scripts\RootMotionControl.cs" />
+     <Compile Include="Assets\Scripts\StateManager.cs" />
+     <Compile Include="Assets\Scripts\TesterHit.cs" />
+     <Compile Include="Assets\Scripts\TesterJoystick.cs" />
+     <Compile Include="Assets\Scripts\TestFSMOnEnter.cs" />
+     <Compile Include="Assets\Scripts\TriggerControl.cs" />
+     <Compile Include="Assets\Scripts\WeaponController.cs" />
+     <Compile Include="Assets\Scripts\WeaponManger.cs" />
+     <Compile Include="Assets\TesterDirector.cs" />
+     <None Include="Assets\AI\BehaviorTrees\monsterAI02_4.txt" />
+     <None Include="Assets\AI\BehaviorTrees\MonsterAI01.txt" />
+     <None Include="Assets\AI\BehaviorTrees\monsterAI_1.txt" />
+     <None Include="Assets\AI\BehaviorTrees\monsterAI02_3.txt" />
+     <None Include="Assets\AI\BehaviorTrees\monsterAI02.txt" />
+     <None Include="Assets\AI\BehaviorTrees\monsterAI03.txt" />
+     <None Include="Assets\AI\BehaviorTrees\monsterAI02_2.txt" />
+     <None Include="Assets\AI\BehaviorTrees\monsterAI.txt" />
+     <None Include="Assets\AI\BehaviorTrees\monsterAI02_1.txt" />
  <Reference Include="UnityEditor.StandardEvents">
  <HintPath>E:/unity3d project/darksouls/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
  </Reference>
@@ -286,6 +335,12 @@
  </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
  <HintPath>D:/unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="RAIN">
+ <HintPath>E:/unity3d project/darksouls/Assets/RAIN/RAIN.dll</HintPath>
+ </Reference>
+ <Reference Include="RAINMetaform">
+ <HintPath>E:/unity3d project/darksouls/Assets/RAIN/RAINMetaform.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/Peng/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
